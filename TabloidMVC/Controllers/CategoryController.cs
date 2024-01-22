@@ -28,13 +28,13 @@ namespace TabloidMVC.Controllers
             return View();
         }
 
-        // GET: DogController/Create
+        // GET: CategoryController/Create
         [Authorize]
         public ActionResult Create()
         {
             return View();
         }
-        // POST: DogController/Create
+        // POST: CategoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category category)
