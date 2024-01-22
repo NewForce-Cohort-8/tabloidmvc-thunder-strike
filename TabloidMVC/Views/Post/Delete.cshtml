@@ -1,0 +1,36 @@
+﻿@model TabloidMVC.Models.Post
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container">
+    <h1 class="mt-4">Delete Post</h1>
+
+    <div class="mt-4">
+        <h4>Confirm Deletion</h4>
+        <p>Are you sure you want to delete the following post?
+            
+        </p>
+    </div>
+
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-2">Title:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Title)</dd>
+
+        <dt class="col-sm-2">Content:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Content)</dd>
+
+        <!-- Add other fields as needed -->
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <div class="mt-4">
+            <p class="text-danger">This action cannot be undone.</p>
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index" class="btn btn-secondary">Reject</a>
+        </div>
+    </form>
+</div>
