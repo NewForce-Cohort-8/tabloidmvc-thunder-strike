@@ -5,7 +5,7 @@ using Microsoft.VisualBasic;
 using System.Security.Claims;
 using TabloidMVC.Models.ViewModels;
 using TabloidMVC.Repositories;
-
+using TabloidMVC.Models;
 namespace TabloidMVC.Controllers
 {
     [Authorize]
@@ -67,7 +67,28 @@ namespace TabloidMVC.Controllers
                 return View(vm);
             }
         }
+        public IActionResult Delete(int id)
+        {
+            var post = _postRepository.GetPublishedPostById(id);
 
+            return View(post);
+        }
+
+        [HttpPost]
+
+        public IActionResult Delete(int id, Post post)
+        {
+            try
+            {
+                _postRepository.DeletePost(id);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View(post);
+            }
+        }
         private int GetCurrentUserProfileId()
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -75,3 +96,4 @@ namespace TabloidMVC.Controllers
         }
     }
 }
+
