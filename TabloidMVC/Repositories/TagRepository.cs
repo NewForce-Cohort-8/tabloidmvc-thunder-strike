@@ -12,6 +12,7 @@ namespace TabloidMVC.Repositories
     {
         public TagRepository(IConfiguration config) : base(config) { }
 
+        //GetAll() Lists all tags
         public List<Tag> GetAll()
         {
             using (var conn = Connection)
@@ -40,6 +41,7 @@ namespace TabloidMVC.Repositories
             }
         }
 
+        //AddTag() Creates new tag
         public void AddTag(Tag tag)
         {
             using (SqlConnection conn = Connection)
