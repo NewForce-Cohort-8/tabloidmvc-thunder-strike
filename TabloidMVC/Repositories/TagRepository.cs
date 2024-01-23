@@ -41,6 +41,7 @@ namespace TabloidMVC.Repositories
             }
         }
 
+
         //AddTag() Creates new tag
         public void AddTag(Tag tag)
         {
