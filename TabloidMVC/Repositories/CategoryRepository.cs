@@ -36,6 +36,7 @@ namespace TabloidMVC.Repositories
             }
         }
 
+
         public Category GetCategoryById(int id)
         {
             using (SqlConnection conn = Connection)
@@ -72,6 +73,7 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
+
         public void AddCategory(Category category)
         {
             using (SqlConnection conn = Connection)
@@ -94,6 +96,7 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
+
         public void UpdateCategory(Category category)
         {
             using (SqlConnection conn = Connection)
@@ -115,6 +118,7 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
+
 
     }
 }
