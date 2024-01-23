@@ -31,6 +31,7 @@ namespace TabloidMVC.Controllers
         }
 
         // GET: TagController/Create
+
         public ActionResult Create()
         {
             return View();
@@ -39,10 +40,12 @@ namespace TabloidMVC.Controllers
         // POST: TagController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Tag tag)
         {
             try
             {
+                _tagRepo.AddTag(tag);
+                
                 return RedirectToAction(nameof(Index));
             }
             catch
