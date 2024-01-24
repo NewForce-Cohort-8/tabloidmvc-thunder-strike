@@ -19,10 +19,37 @@ namespace TabloidMVC.Controllers
             _postRepository = postRepository;
             _categoryRepository = categoryRepository;
         }
+        public IActionResult Edit(int id)
+        {
+            Post post = _postRepository.GetPublishedPostById(id);
 
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return View(post);
+        }
+
+        [HttpPost]
+
+        public IActionResult Edit(int id, Post post)
+        {
+            try
+            {
+                _postRepository.UpdatePost(post);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View(post);
+            }
+        }
         public IActionResult Index()
         {
-            var posts = _postRepository.GetAllPublishedPosts();
+            int userProfileId = GetCurrentUserProfileId();
+            List<Post> posts = _postRepository.GetUserPosts(userProfileId);
             return View(posts);
         }
 

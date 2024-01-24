@@ -6,9 +6,11 @@ namespace TabloidMVC.Repositories
     public interface IPostRepository
     {
         void Add(Post post);
+        List<Post> GetUserPosts(int userProfileId);
         List<Post> GetAllPublishedPosts();
         Post GetPublishedPostById(int id);
         Post GetUserPostById(int id, int userProfileId);
         void DeletePost(int postId);
+        void UpdatePost(Post post);
     }
 }
