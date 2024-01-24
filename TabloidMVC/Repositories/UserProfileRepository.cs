@@ -8,6 +8,25 @@ namespace TabloidMVC.Repositories
     public class UserProfileRepository : BaseRepository, IUserProfileRepository
     {
         public UserProfileRepository(IConfiguration config) : base(config) { }
+        public void UpdateUserProfile(UserProfile userProfile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+              UPDATE UserProfile
+              SET IsDeactivated = @isDeactivated
+              WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", userProfile.Id);
+                    cmd.Parameters.AddWithValue("@isDeactivated", userProfile.IsDeactivated);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public List<UserProfile> GetAllUserProfiles()
         {
             using (var conn = Connection)
