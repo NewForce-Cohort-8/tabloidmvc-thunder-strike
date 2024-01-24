@@ -119,7 +119,7 @@ namespace TabloidMVC.Repositories
                     cmd.CommandText = @"
                        SELECT u.id, u.FirstName, u.LastName, u.DisplayName, u.Email,
                               u.CreateDateTime, u.ImageLocation, u.UserTypeId,
-                              ut.[Name] AS UserTypeName
+                              ut.[Name] AS UserTypeName,u.IsDeactivated
                          FROM UserProfile u
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
                         WHERE email = @email";
@@ -139,6 +139,7 @@ namespace TabloidMVC.Repositories
                             DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                             ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
+                            IsDeactivated = reader.GetBoolean(reader.GetOrdinal("IsDeactivated")),
                             UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                             UserType = new UserType()
                             {
