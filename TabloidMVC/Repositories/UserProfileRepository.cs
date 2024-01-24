@@ -37,6 +37,40 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
+
+        public UserProfile GetUserProfileById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                SELECT u.Id, u.FirstName, u.LastName, u.DisplayName, u.Email,
+                       u.CreateDateTime, u.ImageLocation, u.UserTypeId,
+                       ut.[Name] AS UserTypeName
+                FROM UserProfile u
+                LEFT JOIN UserType ut ON u.UserTypeId = ut.Id
+                WHERE u.Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    UserProfile userprofile = null;
+
+                    if (reader.Read())
+                    {
+                        userprofile = NewUserProfileFromReader(reader);
+                    }
+
+                    reader.Close();
+
+                    return userprofile;
+                }
+            }
+        }
+
         private UserProfile NewUserProfileFromReader(SqlDataReader reader)
         {
             return new UserProfile()
@@ -56,7 +90,6 @@ namespace TabloidMVC.Repositories
                 },
             };
         }
-
         public UserProfile GetByEmail(string email)
         {
             using (var conn = Connection)
