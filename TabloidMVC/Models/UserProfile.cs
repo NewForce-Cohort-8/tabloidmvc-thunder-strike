@@ -10,6 +10,7 @@
         public DateTime CreateDateTime { get; set; }
         public string ImageLocation { get; set; }
         public int UserTypeId { get; set; }
+        public bool IsDeactivated { get; set; }
         public UserType UserType { get; set; }
         public string FullName
         {

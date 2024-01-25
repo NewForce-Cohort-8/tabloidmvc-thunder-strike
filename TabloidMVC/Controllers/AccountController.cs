@@ -28,9 +28,9 @@ namespace TabloidMVC.Controllers
         {
             var userProfile = _userProfileRepository.GetByEmail(credentials.Email);
 
-            if (userProfile == null)
+            if (userProfile == null || userProfile.IsDeactivated)
             {
-                ModelState.AddModelError("Email", "Invalid email");
+                ModelState.AddModelError("Email", "Invalid email or user is deactivated");
                 return View();
             }
 

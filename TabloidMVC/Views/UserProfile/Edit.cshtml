@@ -1,0 +1,62 @@
+﻿@model TabloidMVC.Models.UserProfile
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Deactivate</h1>
+
+<h4>UserProfile</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Id" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="FirstName" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="LastName" type="hidden" />
+            </div>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Name:</th>
+                    <td>@Html.DisplayFor(model => model.FullName)</td>
+                </tr>
+                <tr>
+                    <th>Display Name:</th>
+                    <td>@Html.DisplayFor(model => model.DisplayName)</td>
+                </tr>
+            </table>
+            <div class="form-group">
+                <input asp-for="Email" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="CreateDateTime" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="ImageLocation" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="UserTypeId" type="hidden" />
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeactivated" /> Deactivate User
+                </label>
+            </div>
+            <br />
+            <div class="form-group">
+                <button type="submit" value="Save" class="btn btn-danger">Confirm Deactivation</button>
+                <a asp-action="Index" class="btn btn-secondary">Reject</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
