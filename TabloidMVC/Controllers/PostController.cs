@@ -21,12 +21,12 @@ namespace TabloidMVC.Controllers
         }
         public IActionResult Edit(int id)
         {
-            Post post = _postRepository.GetPublishedPostById(id);
+            Post post = _postRepository.GetPostById(id);
 
             if (post == null)
             {
                 return NotFound();
-            }
+            }  
 
             return View(post);
         }
@@ -96,7 +96,7 @@ namespace TabloidMVC.Controllers
         }
         public IActionResult Delete(int id)
         {
-            var post = _postRepository.GetPublishedPostById(id);
+            var post = _postRepository.GetPostById(id);
 
             return View(post);
         }
