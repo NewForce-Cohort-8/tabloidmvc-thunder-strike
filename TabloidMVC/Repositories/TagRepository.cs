@@ -63,7 +63,8 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
-
+        
+        //Allows user to call up specific tag by Id
         public Tag GetTagById(int id)
         {
             using(SqlConnection conn = Connection)
@@ -97,7 +98,7 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
-
+        //Allows user to delete tag
         public void DeleteTag(int tagId)
         {
             using (SqlConnection conn = Connection)
@@ -112,6 +113,28 @@ namespace TabloidMVC.Repositories
                     ";
 
                     cmd.Parameters.AddWithValue("@id", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        //Allows user to edit tag
+        public void UpdateTag(Tag tag)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Tag
+                        SET [Name] = @name
+                        WHERE id = @id";
+
+                    cmd.Parameters.AddWithValue("@name", tag.Name);
+                    cmd.Parameters.AddWithValue("@id", tag.Id);
 
                     cmd.ExecuteNonQuery();
                 }

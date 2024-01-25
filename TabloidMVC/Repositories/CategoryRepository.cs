@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Intrinsics.X86;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using TabloidMVC.Models;
 
 namespace TabloidMVC.Repositories
@@ -119,6 +122,37 @@ namespace TabloidMVC.Repositories
             }
         }
 
+        public void DeleteCategory(int categoryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    try
+                    {
+                        //... Code to delete a record here ...
+                    cmd.CommandText = @"
+                            DELETE 
+                            FROM Category
+                            WHERE Id = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@id", categoryId);
+                    cmd.ExecuteNonQuery();
+                    }
+                
+
+                    catch (SqlException ex) when (ex.Number == 547)
+                    {
+                        //... Notify the user that the record is in use here ...
+                        Console.WriteLine(ex.Message);
+                    }
+                      
+                }
+            }
+        }
 
     }
 }
